@@ -6,27 +6,35 @@ struct Node{
   struct Node* next;
 };
 
-struct Node* create(){
-  struct Node* head = NULL;
-  struct Node* second = NULL;
-  struct Node* third = NULL;
-
-  head = malloc(sizeof(struct Node));
-  second = malloc(sizeof(struct Node));
-  third = malloc(sizeof(struct Node));
-
-  head -> data = 1;
-  head -> next = second;
-
-  second -> data = 2;
-  second -> next = third;
+struct Node* BuildOneTwoThree(){
+  struct Node* head = malloc(sizeof(struct Node));
   
-  third -> data = 3;
-  third -> next = NULL;
+  head -> data = 1;
+  head -> next = malloc(sizeof(struct Node));
+  
+  (head->next) -> data = 2;
+  (head->next) -> next = malloc(sizeof(struct Node));
+
+  ((head->next)->next) -> data = 3;
+  ((head->next)->next) -> next = NULL;
 
   return head;
 }
+int Length(struct Node* head){
+  struct Node* current = head;
+  int count = 0;
 
+  while(current != NULL){
+    count++;
+    current = current -> next;
+  }
+
+  return count;
+}
+void LengthTest(){
+  struct Node* myList = BuildOneTwoThree();
+  int len = Length(myList);
+}
 void printLinkedList(struct Node* head){
   while(head){
     printf("%d ", head -> data);
@@ -44,12 +52,6 @@ void release(struct Node* head){
 }
 
 int main(){
-  struct Node* list = create();
-  
-  printf("HI\n");
-  printLinkedList(list);
-
-  release(list);
-
+  LengthTest();
   return 0;
 }
